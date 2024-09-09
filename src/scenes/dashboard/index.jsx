@@ -1,3 +1,5 @@
+import React from 'react';
+import GridLayout from 'react-grid-layout';
 import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import { mockTransactions } from "../../data/userData";
@@ -12,17 +14,31 @@ import GeographyChart from "../../components/GeographyChart";
 import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
+import 'react-grid-layout/css/styles.css';
+import 'react-resizable/css/styles.css';
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  // Define the grid layout with adjusted height for StatBox components
+  const layout = [
+    { i: 'stat1', x: 0, y: 0, w: 3, h: 1 }, 
+    { i: 'stat2', x: 3, y: 0, w: 3, h: 1 }, 
+    { i: 'stat3', x: 6, y: 0, w: 3, h: 1 }, 
+    { i: 'stat4', x: 9, y: 0, w: 3, h: 1 }, 
+    { i: 'lineChart', x: 0, y: 1.5, w: 8, h: 3 },
+    { i: 'transactions', x: 8, y: 1.5, w: 4, h: 3 },
+    { i: 'campaign', x: 0, y: 4.5, w: 4, h: 2 },
+    { i: 'barChart', x: 4, y: 4.5, w: 4, h: 2 },
+    { i: 'geoChart', x: 8, y: 4.5, w: 4, h: 2 },
+  ];
 
   return (
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
-
         <Box>
           <Button
             sx={{
@@ -40,100 +56,119 @@ const Dashboard = () => {
       </Box>
 
       {/* GRID & CHARTS */}
-      <Box
-        display="grid"
-        gridTemplateColumns="repeat(12, 1fr)"
-        gridAutoRows="140px"
-        gap="20px"
+      <GridLayout
+        className="layout"
+        layout={layout}
+        cols={12}
+        rowHeight={140}
+        width={1200}
+        isDraggable={true}
+        isResizable={false} 
+        style={{ padding: 0 }}
       >
         {/* ROW 1 */}
-        <Box
-          gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
-            title="12,361"
-            subtitle="Emails Sent"
-            progress="0.75"
-            increase="+14%"
-            icon={
-              <EmailIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box>
-        <Box
-          gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
-            title="431,225"
-            subtitle="Sales Obtained"
-            progress="0.50"
-            increase="+21%"
-            icon={
-              <PointOfSaleIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box>
-        <Box
-          gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
-            title="32,441"
-            subtitle="New Clients"
-            progress="0.30"
-            increase="+5%"
-            icon={
-              <PersonAddIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box>
-        <Box
-          gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
-            title="1,325,134"
-            subtitle="Traffic Received"
-            progress="0.80"
-            increase="+43%"
-            icon={
-              <TrafficIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box>
+        <div key="stat1">
+          <Box
+            backgroundColor={colors.primary[400]}
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            height="100%"
+            p="0"
+            m="0"
+          >
+            <StatBox
+              title="12,361"
+              subtitle="Emails Sent"
+              progress="0.75"
+              increase="+14%"
+              icon={
+                <EmailIcon
+                  sx={{ color: colors.greenAccent[600], fontSize: "26px" }} 
+                />
+              }
+            />
+          </Box>
+        </div>
+
+        <div key="stat2">
+          <Box
+            backgroundColor={colors.primary[400]}
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            height="100%"
+            p="0"
+            m="0"
+          >
+            <StatBox
+              title="431,225"
+              subtitle="Sales Obtained"
+              progress="0.50"
+              increase="+21%"
+              icon={
+                <PointOfSaleIcon
+                  sx={{ color: colors.greenAccent[600], fontSize: "26px" }} 
+                />
+              }
+            />
+          </Box>
+        </div>
+
+        <div key="stat3">
+          <Box
+            backgroundColor={colors.primary[400]}
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            height="100%"
+            p="0"
+            m="0"
+          >
+            <StatBox
+              title="32,441"
+              subtitle="New Clients"
+              progress="0.30"
+              increase="+5%"
+              icon={
+                <PersonAddIcon
+                  sx={{ color: colors.greenAccent[600], fontSize: "26px" }} 
+                />
+              }
+            />
+          </Box>
+        </div>
+
+        <div key="stat4">
+          <Box
+            backgroundColor={colors.primary[400]}
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            height="100%"
+            p="0"
+            m="0"
+          >
+            <StatBox
+              title="1,325,134"
+              subtitle="Traffic Received"
+              progress="0.80"
+              increase="+43%"
+              icon={
+                <TrafficIcon
+                  sx={{ color: colors.greenAccent[600], fontSize: "26px" }} 
+                />
+              }
+            />
+          </Box>
+        </div>
 
         {/* ROW 2 */}
-        <Box
-          gridColumn="span 8"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-        >
+        <div key="lineChart">
           <Box
             mt="25px"
             p="0 30px"
-            display="flex "
+            display="flex"
             justifyContent="space-between"
             alignItems="center"
           >
@@ -164,119 +199,122 @@ const Dashboard = () => {
           <Box height="250px" m="-20px 0 0 0">
             <LineChart isDashboard={true} />
           </Box>
-        </Box>
-        <Box
-          gridColumn="span 4"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-          overflow="auto"
-        >
+        </div>
+
+        <div key="transactions">
           <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            borderBottom={`4px solid ${colors.primary[500]}`}
-            colors={colors.grey[100]}
-            p="15px"
+            backgroundColor={colors.primary[400]}
+            overflow="auto"
+            height="100%"
+            p="0"
+            m="0"
           >
-            <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
-              Recent Transactions
-            </Typography>
-          </Box>
-          {mockTransactions.map((transaction, i) => (
             <Box
-              key={`${transaction.txId}-${i}`}
               display="flex"
               justifyContent="space-between"
               alignItems="center"
               borderBottom={`4px solid ${colors.primary[500]}`}
+              colors={colors.grey[100]}
               p="15px"
             >
-              <Box>
-                <Typography
-                  color={colors.greenAccent[500]}
-                  variant="h5"
-                  fontWeight="600"
-                >
-                  {transaction.txId}
-                </Typography>
-                <Typography color={colors.grey[100]}>
-                  {transaction.user}
-                </Typography>
-              </Box>
-              <Box color={colors.grey[100]}>{transaction.date}</Box>
-              <Box
-                backgroundColor={colors.greenAccent[500]}
-                p="5px 10px"
-                borderRadius="4px"
+              <Typography
+                color={colors.grey[100]}
+                variant="h5"
+                fontWeight="600"
               >
-                ${transaction.cost}
-              </Box>
+                Recent Transactions
+              </Typography>
             </Box>
-          ))}
-        </Box>
+            {mockTransactions.map((transaction, i) => (
+              <Box
+                key={`${transaction.txId}-${i}`}
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+                borderBottom={`4px solid ${colors.primary[500]}`}
+                p="15px"
+              >
+                <Box>
+                  <Typography
+                    color={colors.greenAccent[500]}
+                    variant="h5"
+                    fontWeight="600"
+                  >
+                    {transaction.txId}
+                  </Typography>
+                  <Typography color={colors.grey[100]}>
+                    {transaction.user}
+                  </Typography>
+                </Box>
+                <Box color={colors.grey[100]}>{transaction.date}</Box>
+                <Box
+                  backgroundColor={colors.greenAccent[500]}
+                  p="5px 10px"
+                  borderRadius="4px"
+                >
+                  ${transaction.cost}
+                </Box>
+              </Box>
+            ))}
+          </Box>
+        </div>
 
         {/* ROW 3 */}
-        <Box
-          gridColumn="span 4"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-          p="30px"
-        >
-          <Typography variant="h5" fontWeight="600">
-            Campaign
-          </Typography>
+        <div key="campaign">
           <Box
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            mt="25px"
+            backgroundColor={colors.primary[400]}
+            p="30px"
           >
-            <ProgressCircle size="125" />
-            <Typography
-              variant="h5"
-              color={colors.greenAccent[500]}
-              sx={{ mt: "15px" }}
-            >
-              $48,352 revenue generated
+            <Typography variant="h5" fontWeight="600">
+              Campaign
             </Typography>
-            <Typography>Includes extra misc expenditures and costs</Typography>
+            <Box
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              mt="25px"
+            >
+              <ProgressCircle size="125" />
+              <Typography
+                variant="h5"
+                color={colors.greenAccent[500]}
+                sx={{ mt: "15px" }}
+              >
+                $48,352 revenue generated
+              </Typography>
+              <Typography>Includes extra misc expenditures and costs</Typography>
+            </Box>
           </Box>
-        </Box>
-        <Box
-          gridColumn="span 4"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-        >
-          <Typography
-            variant="h5"
-            fontWeight="600"
-            sx={{ padding: "30px 30px 0 30px" }}
+        </div>
+
+        <div key="barChart">
+          <Box
+            backgroundColor={colors.primary[400]}
+            p="30px"
           >
-            Sales Quantity
-          </Typography>
-          <Box height="250px" mt="-20px">
-            <BarChart isDashboard={true} />
+            <Typography variant="h5" fontWeight="600">
+              Sales Quantity
+            </Typography>
+            <Box height="250px" mt="-20px">
+              <BarChart isDashboard={true} />
+            </Box>
           </Box>
-        </Box>
-        <Box
-          gridColumn="span 4"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-          padding="30px"
-        >
-          <Typography
-            variant="h5"
-            fontWeight="600"
-            sx={{ marginBottom: "15px" }}
+        </div>
+
+        <div key="geoChart">
+          <Box
+            backgroundColor={colors.primary[400]}
+            p="30px"
           >
-            Geography Based Traffic
-          </Typography>
-          <Box height="200px">
-            <GeographyChart isDashboard={true} />
+            <Typography variant="h5" fontWeight="600">
+              Geography Based Traffic
+            </Typography>
+            <Box height="250px" mt="-20px">
+              <GeographyChart isDashboard={true} />
+            </Box>
           </Box>
-        </Box>
-      </Box>
+        </div>
+      </GridLayout>
     </Box>
   );
 };
