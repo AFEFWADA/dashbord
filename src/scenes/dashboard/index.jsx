@@ -1,5 +1,5 @@
 import React from 'react';
-import GridLayout from 'react-grid-layout';
+import { Responsive, WidthProvider } from 'react-grid-layout';
 import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import { mockTransactions } from "../../data/userData";
@@ -17,22 +17,27 @@ import ProgressCircle from "../../components/ProgressCircle";
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 
+// Wrap GridLayout with WidthProvider
+const ResponsiveGridLayout = WidthProvider(Responsive);
+
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  // Define the grid layout with adjusted height for StatBox components
   const layout = [
-    { i: 'stat1', x: 0, y: 0, w: 3, h: 1 }, 
-    { i: 'stat2', x: 3, y: 0, w: 3, h: 1 }, 
-    { i: 'stat3', x: 6, y: 0, w: 3, h: 1 }, 
-    { i: 'stat4', x: 9, y: 0, w: 3, h: 1 }, 
+    { i: 'stat1', x: 0, y: 0, w: 3, h: 1 },
+    { i: 'stat2', x: 3, y: 0, w: 3, h: 1 },
+    { i: 'stat3', x: 6, y: 0, w: 3, h: 1 },
+    { i: 'stat4', x: 9, y: 0, w: 3, h: 1 },
     { i: 'lineChart', x: 0, y: 1.5, w: 8, h: 3 },
     { i: 'transactions', x: 8, y: 1.5, w: 4, h: 3 },
     { i: 'campaign', x: 0, y: 4.5, w: 4, h: 2 },
     { i: 'barChart', x: 4, y: 4.5, w: 4, h: 2 },
     { i: 'geoChart', x: 8, y: 4.5, w: 4, h: 2 },
   ];
+
+  const breakpoints = { lg: 1200, md: 996, sm: 768, xs: 480 };
+  const cols = { lg: 12, md: 10, sm: 6, xs: 4 };
 
   return (
     <Box m="20px">
@@ -56,14 +61,14 @@ const Dashboard = () => {
       </Box>
 
       {/* GRID & CHARTS */}
-      <GridLayout
+      <ResponsiveGridLayout
         className="layout"
-        layout={layout}
-        cols={12}
+        layouts={{ lg: layout }}
+        breakpoints={breakpoints}
+        cols={cols}
         rowHeight={140}
-        width={1200}
         isDraggable={true}
-        isResizable={false} 
+        isResizable={false}
         style={{ padding: 0 }}
       >
         {/* ROW 1 */}
@@ -84,7 +89,7 @@ const Dashboard = () => {
               increase="+14%"
               icon={
                 <EmailIcon
-                  sx={{ color: colors.greenAccent[600], fontSize: "26px" }} 
+                  sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
                 />
               }
             />
@@ -108,7 +113,7 @@ const Dashboard = () => {
               increase="+21%"
               icon={
                 <PointOfSaleIcon
-                  sx={{ color: colors.greenAccent[600], fontSize: "26px" }} 
+                  sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
                 />
               }
             />
@@ -132,7 +137,7 @@ const Dashboard = () => {
               increase="+5%"
               icon={
                 <PersonAddIcon
-                  sx={{ color: colors.greenAccent[600], fontSize: "26px" }} 
+                  sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
                 />
               }
             />
@@ -156,7 +161,7 @@ const Dashboard = () => {
               increase="+43%"
               icon={
                 <TrafficIcon
-                  sx={{ color: colors.greenAccent[600], fontSize: "26px" }} 
+                  sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
                 />
               }
             />
@@ -261,10 +266,7 @@ const Dashboard = () => {
 
         {/* ROW 3 */}
         <div key="campaign">
-          <Box
-            backgroundColor={colors.primary[400]}
-            p="30px"
-          >
+          <Box backgroundColor={colors.primary[400]} p="30px">
             <Typography variant="h5" fontWeight="600">
               Campaign
             </Typography>
@@ -288,10 +290,7 @@ const Dashboard = () => {
         </div>
 
         <div key="barChart">
-          <Box
-            backgroundColor={colors.primary[400]}
-            p="30px"
-          >
+          <Box backgroundColor={colors.primary[400]} p="30px">
             <Typography variant="h5" fontWeight="600">
               Sales Quantity
             </Typography>
@@ -302,10 +301,7 @@ const Dashboard = () => {
         </div>
 
         <div key="geoChart">
-          <Box
-            backgroundColor={colors.primary[400]}
-            p="30px"
-          >
+          <Box backgroundColor={colors.primary[400]} p="30px">
             <Typography variant="h5" fontWeight="600">
               Geography Based Traffic
             </Typography>
@@ -314,7 +310,7 @@ const Dashboard = () => {
             </Box>
           </Box>
         </div>
-      </GridLayout>
+      </ResponsiveGridLayout>
     </Box>
   );
 };
