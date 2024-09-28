@@ -1,5 +1,5 @@
 import React, { useState } from "react"; 
-import { Routes, Route, useLocation } from "react-router-dom"; // Import useLocation
+import { Routes, Route, useLocation } from "react-router-dom"; 
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
@@ -10,7 +10,9 @@ import Line from "./scenes/line";
 import Pie from "./scenes/pie";
 import Geography from "./scenes/geography";
 import Calendar from "./scenes/calendar/calendar";
-import Widget from "./scenes/Widget"; // 
+import Widget from "./scenes/Widget"; 
+import Sign from "./scenes/Sign"; 
+
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme"; 
 
@@ -24,12 +26,17 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="app">
-          {/* Conditionally render Topbar and Sidebar based on route */}
-          {location.pathname !== "/" && <Sidebar isSidebar={isSidebar} />}
+          {/* Conditionally render Sidebar and Topbar based on the route */}
+          {location.pathname !== "/" && location.pathname !== "/reg" && (
+            <Sidebar isSidebar={isSidebar} />
+          )}
           <main className="content">
-            {location.pathname !== "/" && <Topbar setIsSidebar={setIsSidebar} />}
+            {location.pathname !== "/" && location.pathname !== "/reg" && (
+              <Topbar setIsSidebar={setIsSidebar} />
+            )}
             <Routes>
               <Route path="/" element={<Widget />} />
+              <Route path="/reg" element={<Sign />} />
 
               <Route path="/home" element={<Dashboard />} />
               <Route path="/team" element={<Team />} />

@@ -19,6 +19,7 @@ function Wid() {
   };
 
   return (
+   
     <div 
       style={{ 
         display: 'flex', 
@@ -46,7 +47,7 @@ function Wid() {
         <h2>Widget</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label htmlFor="email"><strong>Email</strong></label>
+            <label htmlFor="email" className="text-color"><strong >Email</strong></label>
             <input 
               type="email"
               placeholder="Enter Email"
@@ -58,7 +59,7 @@ function Wid() {
           </div>
 
           <div className="mb-3">
-            <label htmlFor="password"><strong>Password</strong></label>
+            <label htmlFor="password" className="text-color"><strong>Password</strong></label>
             <input 
               type="password"
               placeholder="Enter Password"
@@ -67,7 +68,9 @@ function Wid() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <Link to="/home" className="btn btn-default border w-100 bg-light rounded-2 text-decoration-none mt-2">Home</Link>
+          <Link to="/reg" >Sign Up</Link>
+          <button type="submit" className="btn btn-default border w-100 bg-light rounded-2 text-decoration-none mt-2">Login</button>
+
         </form>
       </div>
     </div>
